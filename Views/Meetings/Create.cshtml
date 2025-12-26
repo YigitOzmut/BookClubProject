@@ -1,0 +1,108 @@
+@model BookClub.WebApi.Models.Meeting
+@{
+    ViewData["Title"] = "Schedule Meeting - BookClub";
+    var books = ViewBag.Books as List<BookClub.WebApi.Models.Book> ?? new();
+    var members = ViewBag.Members as List<BookClub.WebApi.Models.Member> ?? new();
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                    <h4 class="mb-0"><i class="bi bi-calendar-plus"></i> Schedule New Meeting</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/meetings/create">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Meeting Date *</label>
+                                <input type="datetime-local" class="form-control" name="Date" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" name="Location" placeholder="e.g., Library Room A">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" name="Notes" rows="3" placeholder="Add meeting notes or agenda..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Books</label>
+                            <select class="form-select" id="bookIds" name="bookIds" multiple size="5">
+                                @foreach (var book in books)
+                                {
+                                    <option value="@book.BookId">@book.Title</option>
+                                }
+                            </select>
+                            <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple books</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Members</label>
+                            <select class="form-select" id="memberIds" name="memberIds" multiple size="5">
+                                @foreach (var member in members)
+                                {
+                                    <option value="@member.MemberId">@member.Name (@member.Email)</option>
+                                }
+                            </select>
+                            <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple members</small>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary-custom"><i class="bi bi-check-circle"></i> Create Meeting</button>
+                            <a href="/meetings" class="btn btn-outline-secondary"><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+<script>
+    // Preserve multi-select state while editing the form
+    document.getElementById('bookIds').addEventListener('change', function() {
+        const selected = Array.from(this.selectedOptions).map(o => o.value);
+        sessionStorage.setItem('selectedBooks', JSON.stringify(selected));
+    });
+
+    document.getElementById('memberIds').addEventListener('change', function() {
+        const selected = Array.from(this.selectedOptions).map(o => o.value);
+        sessionStorage.setItem('selectedMembers', JSON.stringify(selected));
+    });
+
+    // Restore selections from session storage on page load
+    window.addEventListener('load', function() {
+        const selectedBooks = sessionStorage.getItem('selectedBooks');
+        const selectedMembers = sessionStorage.getItem('selectedMembers');
+        
+        if (selectedBooks) {
+            const bookIds = JSON.parse(selectedBooks);
+            const bookSelect = document.getElementById('bookIds');
+            Array.from(bookSelect.options).forEach(option => {
+                option.selected = bookIds.includes(option.value);
+            });
+        }
+        
+        if (selectedMembers) {
+            const memberIds = JSON.parse(selectedMembers);
+            const memberSelect = document.getElementById('memberIds');
+            Array.from(memberSelect.options).forEach(option => {
+                option.selected = memberIds.includes(option.value);
+            });
+        }
+    });
+
+    // Clear session storage on form submission
+    document.querySelector('form').addEventListener('submit', function() {
+        sessionStorage.removeItem('selectedBooks');
+        sessionStorage.removeItem('selectedMembers');
+    });
+</script>
+}

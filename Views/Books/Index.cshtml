@@ -1,0 +1,154 @@
+@model IEnumerable<BookClub.WebApi.Models.Book>
+
+@{
+    ViewData["Title"] = "Books - BookClub";
+    var genres = ViewBag.Genres as List<BookClub.WebApi.Models.Genre> ?? new();
+    var search = ViewBag.Search as string;
+    var selectedGenre = ViewBag.SelectedGenre as int?;
+    var sortBy = ViewBag.SortBy as string ?? "title";
+}
+
+<div class="container mt-5">
+    <h2 class="section-title mb-4"><i class="bi bi-book"></i> Books Library</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <form method="get" class="card p-3">
+                <h6 class="mb-3">Search & Filter</h6>
+                <div class="mb-3">
+                    <label class="form-label">Search</label>
+                    <input type="text" name="search" class="form-control" placeholder="Title or author..." value="@search">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Genre</label>
+                    <select name="genreId" class="form-select">
+                        <option value="">All Genres</option>
+                        @foreach (var genre in genres)
+                        {
+                            <option value="@genre.GenreId" selected="@(selectedGenre == genre.GenreId)">@genre.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Sort By</label>
+                    <select name="sortBy" class="form-select">
+                        <option value="title" selected="@(sortBy == "title")">Title (A-Z)</option>
+                        <option value="rating" selected="@(sortBy == "rating")">Rating (High to Low)</option>
+                        <option value="year" selected="@(sortBy == "year")">Year (Newest)</option>
+                        <option value="newest" selected="@(sortBy == "newest")">Recently Added</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary-custom w-100 mb-2">Search</button>
+                <a href="/books" class="btn btn-secondary w-100">Clear</a>
+            </form>
+        </div>
+
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>@Model.Count() book(s) found</h5>
+                <a href="/books/create" class="btn btn-primary-custom btn-sm"><i class="bi bi-plus"></i> Add New Book</a>
+            </div>
+
+            <div class="row">
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var book in Model)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card book-card">
+                                <div class="book-card-img">
+                                    @if (!string.IsNullOrEmpty(book.CoverImageUrl))
+                                    {
+                                        <img src="@book.CoverImageUrl" alt="@book.Title">
+                                    }
+                                    else
+                                    {
+                                        <div style="text-align: center; width: 100%;">
+                                            <i class="bi bi-book book-icon"></i>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title" style="font-size: 1rem; color: var(--primary-color); font-weight: 600;">@book.Title</h5>
+
+                                    @if (book.BookAuthors.Count > 0)
+                                    {
+                                        <p class="card-text mb-2" style="font-size: 0.85rem; color: #666;">
+                                            <strong>By:</strong> @string.Join(", ", book.BookAuthors.Select(ba => ba.Author?.Name ?? "Unknown"))
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(book.Genre?.Name))
+                                    {
+                                        <div class="mb-2">
+                                            <span class="badge-genre">@book.Genre.Name</span>
+                                        </div>
+                                    }
+
+                                    @if (book.PublicationYear.HasValue)
+                                    {
+                                        <p class="card-text" style="font-size: 0.85rem; color: #888;">Published: @book.PublicationYear</p>
+                                    }
+
+                                    @if (book.PageCount.HasValue)
+                                    {
+                                        <p class="card-text" style="font-size: 0.85rem; color: #888;">@book.PageCount pages</p>
+                                    }
+
+                                    @if (book.AverageRating > 0)
+                                    {
+                                        <div class="rating-stars mb-2">
+                                            @for (int i = 0; i < (int)book.AverageRating; i++)
+                                            {
+                                                <i class="bi bi-star-fill"></i>
+                                            }
+                                            @for (int i = (int)book.AverageRating; i < 5; i++)
+                                            {
+                                                <i class="bi bi-star"></i>
+                                            }
+                                            <span style="margin-left: 5px; font-size: 0.9rem;">@book.AverageRating.ToString("F1")</span>
+                                        </div>
+                                    }
+
+                                    @if (book.ReviewCount > 0)
+                                    {
+                                        <p class="card-text" style="font-size: 0.8rem; color: #999;">@book.ReviewCount review(s)</p>
+                                    }
+
+                                    <div class="availability-badge mb-3">
+                                        @if (book.IsAvailable)
+                                        {
+                                            <span class="badge bg-success">Available</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning">Unavailable</span>
+                                        }
+                                    </div>
+
+                                    <div class="mt-auto">
+                                        <a href="/book/@book.BookId" class="btn btn-primary-custom btn-sm w-100 mb-2">View Details</a>
+                                        <div class="btn-group w-100" role="group">
+                                            <a href="/books/edit/@book.BookId" class="btn btn-outline-secondary btn-sm" title="Edit"><i class="bi bi-pencil"></i></a>
+                                            <form method="post" action="/books/delete/@book.BookId" style="display: inline;" onsubmit="return confirm('Are you sure?');">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> No books found. Try adjusting your search criteria.
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

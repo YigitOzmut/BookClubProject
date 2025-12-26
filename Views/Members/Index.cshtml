@@ -1,0 +1,122 @@
+@model IEnumerable<BookClub.WebApi.Models.Member>
+
+@{
+    ViewData["Title"] = "Members - BookClub";
+    var search = ViewBag.Search as string;
+    var selectedRole = ViewBag.SelectedRole as string;
+}
+
+<div class="container mt-5">
+    <h2 class="section-title mb-4"><i class="bi bi-people"></i> Club Members</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <form method="get" class="card p-3">
+                <h6 class="mb-3">Search & Filter</h6>
+                <div class="mb-3">
+                    <label class="form-label">Search</label>
+                    <input type="text" name="search" class="form-control" placeholder="Name or email..." value="@search">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <select name="role" class="form-select">
+                        <option value="">All Roles</option>
+                        <option value="Member" selected="@(selectedRole == "Member")">Member</option>
+                        <option value="Moderator" selected="@(selectedRole == "Moderator")">Moderator</option>
+                        <option value="Admin" selected="@(selectedRole == "Admin")">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary-custom w-100 mb-2">Search</button>
+                <a href="/members" class="btn btn-secondary w-100">Clear</a>
+            </form>
+        </div>
+
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>@Model.Count() member(s) found</h5>
+                <a href="/members/create" class="btn btn-primary-custom btn-sm"><i class="bi bi-plus"></i> Add New Member</a>
+            </div>
+
+            <div class="row">
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var member in Model)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title" style="font-size: 1.1rem; color: var(--primary-color); font-weight: 600;">@member.Name</h5>
+                                        @if (member.IsActive)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Inactive</span>
+                                        }
+                                    </div>
+
+                                    <p class="card-text mb-2" style="font-size: 0.85rem; color: #666;">
+                                        <strong><i class="bi bi-envelope"></i></strong> @member.Email
+                                    </p>
+
+                                    @if (!string.IsNullOrEmpty(member.Phone))
+                                    {
+                                        <p class="card-text mb-2" style="font-size: 0.85rem; color: #666;">
+                                            <strong><i class="bi bi-telephone"></i></strong> @member.Phone
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(member.Role))
+                                    {
+                                        <p class="card-text mb-2">
+                                            <span class="badge badge-role">@member.Role</span>
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(member.Bio))
+                                    {
+                                        <p class="card-text mb-2" style="font-size: 0.85rem; color: #777;">
+                                            @(member.Bio?.Length > 100 ? member.Bio.Substring(0, 100) + "..." : member.Bio)
+                                        </p>
+                                    }
+
+                                    <p class="card-text" style="font-size: 0.8rem; color: #999;">
+                                        <i class="bi bi-calendar"></i> Joined: @member.JoinDate.ToString("MMM dd, yyyy")
+                                    </p>
+
+                                    <div class="mt-auto">
+                                        <a href="/members/@member.MemberId" class="btn btn-primary-custom btn-sm w-100 mb-2">View Profile</a>
+                                        <div class="btn-group w-100" role="group">
+                                            <a href="/members/edit/@member.MemberId" class="btn btn-outline-secondary btn-sm" title="Edit"><i class="bi bi-pencil"></i></a>
+                                            <form method="post" action="/members/delete/@member.MemberId" style="display: inline;" onsubmit="return confirm('Are you sure?');">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> No members found. Try adjusting your search criteria.
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .badge-role {
+        background-color: var(--accent-color) !important;
+        font-size: 0.75rem;
+        padding: 0.35rem 0.65rem;
+    }
+</style>

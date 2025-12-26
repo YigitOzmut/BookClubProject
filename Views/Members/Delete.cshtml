@@ -1,0 +1,38 @@
+@model BookClub.WebApi.Models.Member
+
+@{
+    ViewData["Title"] = $"Delete {Model.Name} - BookClub";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Delete Member</h4>
+                </div>
+                <div class="card-body">
+                    <p class="alert alert-warning">
+                        <strong>Warning:</strong> Are you sure you want to delete <strong>@Model.Name</strong>? This action cannot be undone.
+                    </p>
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p><strong>Name:</strong> @Model.Name</p>
+                            <p><strong>Email:</strong> @Model.Email</p>
+                            <p><strong>Joined:</strong> @Model.JoinDate.ToString("MMM dd, yyyy")</p>
+                        </div>
+                    </div>
+
+                    <form method="post" action="/members/delete/@Model.MemberId">
+                        @Html.AntiForgeryToken()
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Yes, Delete Member</button>
+                            <a href="/members/@Model.MemberId" class="btn btn-outline-secondary"><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

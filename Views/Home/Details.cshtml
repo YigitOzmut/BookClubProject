@@ -1,0 +1,45 @@
+@model BookClub.WebApi.Models.Book
+
+<h1>@Model.Title</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Genre</dt>
+    <dd class="col-sm-10">@Model.Genre?.Name</dd>
+
+    <dt class="col-sm-2">Year</dt>
+    <dd class="col-sm-10">@Model.PublicationYear</dd>
+
+    <dt class="col-sm-2">Pages</dt>
+    <dd class="col-sm-10">@Model.PageCount</dd>
+
+    <dt class="col-sm-2">ISBN</dt>
+    <dd class="col-sm-10">@Model.ISBN</dd>
+</dl>
+
+<h3>Authors</h3>
+<ul>
+@foreach (var ba in Model.BookAuthors)
+{
+    <li>@ba.Author?.Name</li>
+}
+</ul>
+
+<h3>Reviews (@Model.ReviewCount)</h3>
+@if (Model.Reviews?.Any() == true)
+{
+    <ul class="list-group">
+    @foreach (var r in Model.Reviews)
+    {
+        <li class="list-group-item">
+            <strong>@r.Rating/10</strong> by @r.Member?.Name<br />
+            @r.Comment
+        </li>
+    }
+    </ul>
+}
+else
+{
+    <p>No reviews yet.</p>
+}
+
+<p><a class="btn btn-secondary" href="/">Back</a></p>

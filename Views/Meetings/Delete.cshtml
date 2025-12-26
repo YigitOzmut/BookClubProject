@@ -1,0 +1,39 @@
+@model BookClub.WebApi.Models.Meeting
+
+@{
+    ViewData["Title"] = $"Delete Meeting - {Model.Date:MMM dd, yyyy}";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Delete Meeting</h4>
+                </div>
+                <div class="card-body">
+                    <p class="alert alert-warning">
+                        <strong>Warning:</strong> Are you sure you want to delete this meeting scheduled for <strong>@Model.Date.ToString("MMM dd, yyyy")</strong>? This action cannot be undone.
+                    </p>
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p><strong>Date:</strong> @Model.Date.ToString("dddd, MMMM dd, yyyy h:mm tt")</p>
+                            <p><strong>Location:</strong> @(Model.Location ?? "Not specified")</p>
+                            <p><strong>Books:</strong> @Model.BookMeetings.Count</p>
+                            <p><strong>Attendees:</strong> @Model.MemberMeetings.Count</p>
+                        </div>
+                    </div>
+
+                    <form method="post" action="/meetings/delete/@Model.MeetingId">
+                        @Html.AntiForgeryToken()
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Yes, Delete Meeting</button>
+                            <a href="/meetings/@Model.MeetingId" class="btn btn-outline-secondary"><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

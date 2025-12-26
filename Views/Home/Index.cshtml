@@ -1,0 +1,159 @@
+@{
+    ViewData["Title"] = "Home - BookClub";
+    var books = ViewBag.FeaturedBooks as List<BookClub.WebApi.Models.Book> ?? new();
+    var stats = ViewBag.Statistics as Dictionary<string, int> ?? new();
+}
+
+<div class="hero-section">
+    <div class="container">
+        <h1><i class="bi bi-book-half"></i> Welcome to BookClub</h1>
+        <p>Discover, discuss, and celebrate literature together</p>
+        <a href="/books" class="btn btn-primary-custom btn-lg mt-3">Explore Books</a>
+    </div>
+</div>
+
+<div class="container mb-5">
+    @if (stats.Count > 0)
+    {
+        <div class="row mb-5">
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100" style="border: none; background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white;">
+                    <div class="card-body">
+                        <i class="bi bi-book fs-1 mb-3"></i>
+                        <h2 class="card-title">@(stats.ContainsKey("TotalBooks") ? stats["TotalBooks"] : 0)</h2>
+                        <p class="card-text">Total Books</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100" style="border: none; background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white;">
+                    <div class="card-body">
+                        <i class="bi bi-people fs-1 mb-3"></i>
+                        <h2 class="card-title">@(stats.ContainsKey("TotalMembers") ? stats["TotalMembers"] : 0)</h2>
+                        <p class="card-text">Active Members</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100" style="border: none; background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white;">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-event fs-1 mb-3"></i>
+                        <h2 class="card-title">@(stats.ContainsKey("TotalMeetings") ? stats["TotalMeetings"] : 0)</h2>
+                        <p class="card-text">Meetings Held</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100" style="border: none; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white;">
+                    <div class="card-body">
+                        <i class="bi bi-chat-left-quote fs-1 mb-3"></i>
+                        <h2 class="card-title">@(stats.ContainsKey("TotalReviews") ? stats["TotalReviews"] : 0)</h2>
+                        <p class="card-text">Reviews</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (books.Count > 0)
+    {
+        <div class="mb-5">
+            <h2 class="section-title">Featured Books</h2>
+            <div class="row">
+                @foreach (var book in books.Take(6))
+                {
+                    <div class="col-md-4 col-lg-2 mb-4" style="min-width: 200px;">
+                        <div class="card book-card">
+                            <div class="book-card-img">
+                                @if (!string.IsNullOrEmpty(book.CoverImageUrl))
+                                {
+                                    <img src="@book.CoverImageUrl" alt="@book.Title">
+                                }
+                                else
+                                {
+                                    <div style="text-align: center;">
+                                        <i class="bi bi-book book-icon"></i>
+                                    </div>
+                                }
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-size: 0.95rem; color: var(--primary-color); font-weight: 600;">@book.Title</h5>
+                                
+                                @if (book.BookAuthors.Count > 0)
+                                {
+                                    <p class="card-text mb-2" style="font-size: 0.85rem; color: #666;">
+                                        @string.Join(", ", book.BookAuthors.Select(ba => ba.Author?.Name ?? "Unknown"))
+                                    </p>
+                                }
+
+                                @if (!string.IsNullOrEmpty(book.Genre?.Name))
+                                {
+                                    <div class="mb-2">
+                                        <span class="badge-genre">@book.Genre.Name</span>
+                                    </div>
+                                }
+
+                                @if (book.AverageRating > 0)
+                                {
+                                    <div class="rating-stars mb-2">
+                                        @for (int i = 0; i < (int)book.AverageRating; i++)
+                                        {
+                                            <i class="bi bi-star-fill"></i>
+                                        }
+                                        @for (int i = (int)book.AverageRating; i < 5; i++)
+                                        {
+                                            <i class="bi bi-star"></i>
+                                        }
+                                        <span style="margin-left: 5px;">@book.AverageRating.ToString("F1")</span>
+                                    </div>
+                                }
+
+                                <p class="card-text" style="font-size: 0.85rem; color: #888;">
+                                    @if (book.PublicationYear.HasValue)
+                                    {
+                                        <span>@book.PublicationYear</span>
+                                    }
+                                </p>
+
+                                <a href="/books/@book.BookId" class="btn btn-primary-custom btn-sm w-100">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100" style="border: none; border-top: 4px solid var(--accent-color);">
+                <div class="card-body text-center">
+                    <i class="bi bi-book fs-2 mb-3" style="color: var(--primary-color);"></i>
+                    <h5 class="card-title">Explore Library</h5>
+                    <p class="card-text">Browse our collection of books, authors, and genres.</p>
+                    <a href="/books" class="btn btn-primary-custom btn-sm">Browse Books</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100" style="border: none; border-top: 4px solid var(--accent-color);">
+                <div class="card-body text-center">
+                    <i class="bi bi-people fs-2 mb-3" style="color: var(--primary-color);"></i>
+                    <h5 class="card-title">Join Community</h5>
+                    <p class="card-text">Connect with fellow book lovers and members.</p>
+                    <a href="/members" class="btn btn-primary-custom btn-sm">View Members</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100" style="border: none; border-top: 4px solid var(--accent-color);">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-event fs-2 mb-3" style="color: var(--primary-color);"></i>
+                    <h5 class="card-title">Upcoming Meetings</h5>
+                    <p class="card-text">Discover when we meet and discuss books.</p>
+                    <a href="/meetings" class="btn btn-primary-custom btn-sm">View Meetings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

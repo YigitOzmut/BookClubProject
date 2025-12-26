@@ -1,0 +1,74 @@
+@model BookClub.WebApi.Models.Book
+
+@{
+    ViewData["Title"] = "Add New Book - BookClub";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                    <h4 class="mb-0"><i class="bi bi-book-plus"></i> Add New Book</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label class="form-label">Title *</label>
+                            <input asp-for="Title" class="form-control" placeholder="Book title" required>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Genre *</label>
+                                <select asp-for="GenreId" class="form-select" asp-items="(SelectList)ViewBag.Genres" required>
+                                    <option value="">-- Select Genre --</option>
+                                </select>
+                                <span asp-validation-for="GenreId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Publication Year</label>
+                                <input asp-for="PublicationYear" type="number" class="form-control" placeholder="e.g., 2023">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Page Count</label>
+                                <input asp-for="PageCount" type="number" class="form-control" placeholder="Number of pages">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">ISBN</label>
+                                <input asp-for="ISBN" class="form-control" placeholder="ISBN-13">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Book synopsis and description..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Cover Image URL</label>
+                            <input asp-for="CoverImageUrl" class="form-control" placeholder="https://example.com/book-cover.jpg">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isAvailable" name="IsAvailable" value="true" checked>
+                                <label class="form-check-label" for="isAvailable">Available</label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary-custom"><i class="bi bi-check-circle"></i> Create Book</button>
+                            <a class="btn btn-outline-secondary" href="/books"><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

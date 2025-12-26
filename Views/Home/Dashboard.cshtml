@@ -1,0 +1,122 @@
+@{
+    ViewData["Title"] = "Dashboard - BookClub";
+    var stats = ViewBag.Statistics as Dictionary<string, object> ?? new();
+}
+
+<div class="container mt-5">
+    <h2 class="section-title mb-4"><i class="bi bi-speedometer2"></i> Dashboard</h2>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card" style="border-left: 5px solid var(--primary-color);">
+                <div class="card-body text-center">
+                    <h5 class="text-muted mb-2">Total Books</h5>
+                    <h3 style="color: var(--primary-color); font-weight: 700;">@(stats?["TotalBooks"] ?? 0)</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card" style="border-left: 5px solid #27ae60;">
+                <div class="card-body text-center">
+                    <h5 class="text-muted mb-2">Active Members</h5>
+                    <h3 style="color: #27ae60; font-weight: 700;">@(stats?["TotalMembers"] ?? 0)</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card" style="border-left: 5px solid #3498db;">
+                <div class="card-body text-center">
+                    <h5 class="text-muted mb-2">Total Meetings</h5>
+                    <h3 style="color: #3498db; font-weight: 700;">@(stats?["TotalMeetings"] ?? 0)</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card" style="border-left: 5px solid var(--accent-color);">
+                <div class="card-body text-center">
+                    <h5 class="text-muted mb-2">Total Reviews</h5>
+                    <h3 style="color: var(--accent-color); font-weight: 700;">@(stats?["TotalReviews"] ?? 0)</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Top Rated Books -->
+        @if (stats.ContainsKey("TopRatedBooks") && stats["TopRatedBooks"] is List<BookClub.WebApi.Models.Book> topBooks && topBooks.Count > 0)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                        <h5 class="mb-0"><i class="bi bi-star"></i> Top Rated Books</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var book in topBooks)
+                        {
+                            <div class="mb-3 pb-3" style="border-bottom: 1px solid #eee;">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 style="color: var(--primary-color); margin: 0;">@book.Title</h6>
+                                        <small class="text-muted">@book.Genre?.Name</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="rating-stars" style="font-size: 0.9rem;">
+                                            @for (int i = 0; i < (int)book.AverageRating; i++)
+                                            {
+                                                <i class="bi bi-star-fill"></i>
+                                            }
+                                            @for (int i = (int)book.AverageRating; i < 5; i++)
+                                            {
+                                                <i class="bi bi-star"></i>
+                                            }
+                                        </div>
+                                        <small>@book.AverageRating.ToString("F1")</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Active Members -->
+        @if (stats.ContainsKey("ActiveMembers") && stats["ActiveMembers"] is List<BookClub.WebApi.Models.Member> activeMembers && activeMembers.Count > 0)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                        <h5 class="mb-0"><i class="bi bi-people"></i> Most Active Members</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var member in activeMembers)
+                        {
+                            <div class="mb-3 pb-3" style="border-bottom: 1px solid #eee;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 style="color: var(--primary-color); margin: 0;">@member.Name</h6>
+                                        <small class="text-muted">@member.Email</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-primary">@member.Reviews.Count reviews</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="d-grid gap-2 d-sm-flex justify-content-center">
+                <a href="/books" class="btn btn-primary-custom"><i class="bi bi-book"></i> Browse Books</a>
+                <a href="/members" class="btn btn-outline-secondary"><i class="bi bi-people"></i> View Members</a>
+                <a href="/meetings" class="btn btn-outline-secondary"><i class="bi bi-calendar2-event"></i> View Meetings</a>
+            </div>
+        </div>
+    </div>
+</div>
