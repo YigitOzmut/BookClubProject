@@ -62,8 +62,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-27T11:08:15.264Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-27T11:08:15.264Z"
             },
             {
               "$type": "Document",
@@ -75,8 +74,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-27T10:53:57.58Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-27T10:53:57.58Z"
             },
             {
               "$type": "Document",
@@ -88,8 +86,7 @@
               "RelativeToolTip": "Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAHgAAAAAAAAAAADgv4UAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-27T10:48:03.088Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-27T10:48:03.088Z"
             },
             {
               "$type": "Document",
@@ -101,8 +98,7 @@
               "RelativeToolTip": "Views\\Books\\Index.cshtml",
               "ViewState": "AgIAAHQAAAAAAAAAAADgv4EAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-27T10:47:43.787Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-27T10:47:43.787Z"
             },
             {
               "$type": "Document",
@@ -114,8 +110,7 @@
               "RelativeToolTip": "Views\\Books\\Details.cshtml",
               "ViewState": "AgIAALkAAAAAAAAAAAAawMgAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-27T10:47:26.913Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-27T10:47:26.913Z"
             },
             {
               "$type": "Document",
@@ -125,7 +120,7 @@
               "RelativeDocumentMoniker": "Controllers\\MembersController.cs",
               "ToolTip": "C:\\Users\\Asus\\Desktop\\BookClubProject\\BookClubProject-main\\Controllers\\MembersController.cs",
               "RelativeToolTip": "Controllers\\MembersController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAwwAAAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-26T19:15:20.591Z",
               "EditorCaption": ""
@@ -152,8 +147,7 @@
               "RelativeToolTip": "Controllers\\BooksController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T18:42:40.731Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-26T18:42:40.731Z"
             },
             {
               "$type": "Document",
@@ -165,8 +159,7 @@
               "RelativeToolTip": "Data\\BookClubContext.cs",
               "ViewState": "AgIAAGMAAAAAAAAAAADwv3sAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T18:42:57.958Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-26T18:42:57.958Z"
             }
           ]
         }
