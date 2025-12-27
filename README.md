@@ -1,37 +1,24 @@
-# BOOK CLUB PROJECT - CMPE232 FINAL PROJECT
+# CMPE232 Book Club Project
 
-## 1. LIBRARIES USED (Kullanılan Kütüphaneler)
-This project uses the following NuGet packages and libraries:
-- **Microsoft.EntityFrameworkCore (v8.0.x):** ORM for database operations.
-- **Microsoft.EntityFrameworkCore.SqlServer (v8.0.x):** SQL Server provider for EF Core.
-- **Microsoft.EntityFrameworkCore.Tools (v8.0.x):** For EF Core migrations and scaffolding.
-- **Microsoft.AspNetCore.OpenApi:** For OpenAPI/Swagger support.
-- **Swashbuckle.AspNetCore:** Generates API documentation and Swagger UI.
+## The libraries used in your project
+I used the following libraries and packages:
+- Microsoft.EntityFrameworkCore
+- Microsoft.EntityFrameworkCore.SqlServer
+- Microsoft.EntityFrameworkCore.Tools
+- Swashbuckle.AspNetCore (For Swagger UI)
 
-## 2. HOW TO RUN (Adım Adım Çalıştırma)
-Follow these steps to run the application successfully:
+## Step-by-step instructions on how to run the application
 
-**Step 1: Configure Database Connection**
-- Open the `appsettings.json` file.
-- Update the `"Server=..."` part in the ConnectionString to match your local SQL Server name.
-  - *Example:* `Server=.;Database=BookClubDB;Trusted_Connection=True;TrustServerCertificate=True;`
+1. Open the "appsettings.json" file in the project. Check the connection string ("Server=..."). If you are using a different SQL Server name, please update it.
 
-**Step 2: Initialize Database**
-- Open **Visual Studio**.
-- Go to **Tools > NuGet Package Manager > Package Manager Console**.
-- Run the following command to create the database schema:
-  `Update-Database`
+2. Open Visual Studio. Go to "Tools" -> "NuGet Package Manager" -> "Package Manager Console".
 
-**Step 3: Load Sample Data (IMPORTANT)**
-- To populate the database with the required sample data (10 items for each category):
-  1. Open SQL Server Management Studio (SSMS).
-  2. Open the file named `VerileriYukle.sql` (located in the project folder).
-  3. Execute the script. This will clear old data and insert fresh sample data (Books, Authors, Members, etc.).
+3. Type the following command and press Enter to create the database:
+   Update-Database
 
-**Step 4: Run the Application**
-- Press the **Play (Run)** button in Visual Studio.
-- The browser will open the application automatically.
+4. To load the sample data (10 items for each table):
+   - Open SQL Server Management Studio (SSMS).
+   - Open the "VerileriYukle.sql" file located in the project folder.
+   - Run (Execute) the script.
 
-## 3. PROJECT DETAILS
-- **Database Design:** The project uses Code-First approach with Entity Framework Core.
-- **Data Integrity:** `ExecuteSqlRawAsync` is used for deletion operations to handle Foreign Key constraints safely.
+5. Press the RUN button in Visual Studio to start the application.

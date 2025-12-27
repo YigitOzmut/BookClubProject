@@ -10,6 +10,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BookClub.WebApi.Controllers.MembersController",
+    "Method": "DeleteConfirm",
+    "RelativePath": "{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BookClub.WebApi.Controllers.BooksApiController",
     "Method": "GetAll",
     "RelativePath": "api/books",
@@ -764,22 +780,6 @@
         "Name": "MemberMeetings",
         "Type": "System.Collections.Generic.List\u00601[[BookClub.WebApi.Models.MemberMeeting, BookClub.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BookClub.WebApi.Controllers.MembersController",
-    "Method": "DeleteConfirm",
-    "RelativePath": "members/delete/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []

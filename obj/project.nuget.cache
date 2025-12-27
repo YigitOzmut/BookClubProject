@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nV+aR4zDkLY=",
+  "dgSpecHash": "snjnBUZpQr0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\Desktop\\BookClubProject-main (2)\\BookClubProject-main\\BookClub.WebApi.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\Desktop\\BookClubProject\\BookClubProject-main\\BookClub.WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

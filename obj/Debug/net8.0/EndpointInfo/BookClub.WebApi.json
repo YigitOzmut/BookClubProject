@@ -1276,7 +1276,7 @@
         }
       }
     },
-    "/members/delete/{id}": {
+    "/{id}": {
       "get": {
         "tags": [
           "Members"
@@ -1297,7 +1297,9 @@
             "description": "Success"
           }
         }
-      },
+      }
+    },
+    "/members/delete/{id}": {
       "post": {
         "tags": [
           "Members"

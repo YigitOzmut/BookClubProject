@@ -102,7 +102,7 @@ namespace BookClub.WebApi.Controllers
             return RedirectToAction(nameof(Details), new { id = member.MemberId });
         }
 
-        [HttpGet("delete/{id:int}")]
+        [HttpGet("/{id:int}")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
             var member = await _db.Members.FindAsync(id);

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookClub.WebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca5c5aff203d5965bc3dd64632afa85d5cc1ecfb")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookClub.WebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookClub.WebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -4449,11 +4449,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Asus\\Desktop\\BookClubProject-main (2)\\BookClubProject-main\\BookClub.WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Asus\\Desktop\\BookClubProject\\BookClubProject-main\\BookClub.WebApi.csproj",
       "projectName": "BookClub.WebApi",
-      "projectPath": "C:\\Users\\Asus\\Desktop\\BookClubProject-main (2)\\BookClubProject-main\\BookClub.WebApi.csproj",
+      "projectPath": "C:\\Users\\Asus\\Desktop\\BookClubProject\\BookClubProject-main\\BookClub.WebApi.csproj",
       "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Asus\\Desktop\\BookClubProject-main (2)\\BookClubProject-main\\obj\\",
+      "outputPath": "C:\\Users\\Asus\\Desktop\\BookClubProject\\BookClubProject-main\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
